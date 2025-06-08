@@ -1,0 +1,37 @@
+{
+  "name": "hamoney",
+  "version": "1.0.0",
+  "description": "🍖 HaMoney - 智能分帳應用 | AI單據掃描 + 一鍵分帳 + 群組管理 + 債務跟蹤",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080",
+    "build": "echo 'No build process needed for static files'",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "bill-splitting",
+    "expense-sharing",
+    "receipt-scanning",
+    "debt-tracking",
+    "group-management",
+    "ai-powered",
+    "financial-management",
+    "web-app",
+    "firebase",
+    "chart-js"
+  ],
+  "author": "Donaldcpk",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Donaldcpk/HaMoney.git"
+  },
+  "homepage": "https://github.com/Donaldcpk/HaMoney#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
