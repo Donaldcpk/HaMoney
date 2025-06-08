@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaMoney - 智能分帳應用程式</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- 自定義樣式 -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">
+                <i class="bi bi-calculator"></i> HaMoney
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home"><i class="bi bi-house"></i> 首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#scanner"><i class="bi bi-camera"></i> 掃描</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#groups"><i class="bi bi-people"></i> 群組</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#records"><i class="bi bi-list-ul"></i> 記錄</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reports"><i class="bi bi-bar-chart-line"></i> 報告</a>
+                    </li>
+                </ul>
+                
+                <!-- 用戶資訊和登入按鈕 -->
+                <div class="d-flex align-items-center">
+                    <div id="languageSelector" class="me-3"></div>
+                    <div id="userInfo" class="d-none me-3"></div>
+                    <button id="loginButton" class="btn btn-outline-light btn-sm me-2">
+                        <i class="bi bi-google me-1"></i>Google登入
+                    </button>
+                    <button id="logoutButton" class="btn btn-outline-light btn-sm d-none">
+                        <i class="bi bi-box-arrow-right me-1"></i>登出
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區域 -->
+    <main class="container-fluid">
+        
+        <!-- 首頁區域 -->
+        <section id="home" class="section-container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="hero-section text-center py-5">
+                        <h1 class="display-4 fw-bold text-white mb-4">歡迎使用 HaMoney</h1>
+                        <p class="lead mb-4">智能分帳應用程式，讓費用分攤變得簡單透明</p>
+                        <div class="row g-4 mt-4">
+                            <div class="col-md-4">
+                                <div class="feature-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-camera-fill text-primary mb-3" style="font-size: 3rem;"></i>
+                                        <h5 class="card-title">智能掃描</h5>
+                                        <p class="card-text">拍攝或上傳單據，AI自動識別金額和項目</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="feature-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-calculator-fill text-success mb-3" style="font-size: 3rem;"></i>
+                                        <h5 class="card-title">自動分帳</h5>
+                                        <p class="card-text">多種分帳模式，快速計算每人應付金額</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="feature-card card h-100 border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-graph-up text-warning mb-3" style="font-size: 3rem;"></i>
+                                        <h5 class="card-title">欠款追蹤</h5>
+                                        <p class="card-text">清楚記錄欠款情況，管理還款進度</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 掃描區域 -->
+        <section id="scanner" class="section-container d-none">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title mb-0"><i class="bi bi-camera"></i> 單據掃描</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- 上傳區域 -->
+                            <div class="upload-area border-2 border-dashed rounded p-4 text-center mb-4" id="uploadArea">
+                                <i class="bi bi-cloud-upload text-muted mb-3" style="font-size: 4rem;"></i>
+                                <h5 class="text-muted">點擊上傳或拖拽圖片到此處</h5>
+                                <p class="text-muted mb-3">支援 JPG、PNG、JPEG 格式</p>
+                                <input type="file" id="fileInput" accept="image/*" class="d-none">
+                                <div class="btn-group">
+                                    <button class="btn btn-primary" id="uploadBtn">
+                                        <i class="bi bi-upload"></i> 選擇檔案
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="cameraBtn">
+                                        <i class="bi bi-camera"></i> 拍照
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 圖片預覽 -->
+                            <div id="imagePreview" class="d-none">
+                                <img id="previewImg" class="img-fluid rounded mb-3" alt="預覽圖片">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-outline-danger" id="removeImageBtn">
+                                        <i class="bi bi-trash"></i> 移除圖片
+                                    </button>
+                                    <button class="btn btn-success" id="analyzeBtn">
+                                        <i class="bi bi-search"></i> 開始分析
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 載入指示器 -->
+                            <div id="loadingIndicator" class="text-center d-none">
+                                <div class="spinner-border text-primary mb-3" role="status">
+                                    <span class="visually-hidden">分析中...</span>
+                                </div>
+                                <p class="text-muted">AI正在分析您的單據，請稍候...</p>
+                            </div>
+
+                            <!-- 分析結果 -->
+                            <div id="analysisResults" class="d-none">
+                                <div class="alert alert-success">
+                                    <h5><i class="bi bi-check-circle"></i> 分析完成！</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h6 class="mb-0">單據資訊</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-2">
+                                                    <strong>總金額：</strong>
+                                                    <span id="totalAmount" class="text-success fs-5">HK$ 0.00</span>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <strong>日期：</strong>
+                                                    <span id="receiptDate">--</span>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <strong>商店：</strong>
+                                                    <span id="storeName">--</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h6 class="mb-0">項目清單</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="itemsList" class="list-group list-group-flush">
+                                                    <!-- 動態生成項目清單 -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <div class="btn-group-vertical d-grid gap-2" role="group">
+                                        <button class="btn btn-success btn-lg btn-modern" id="quickEqualSplit">
+                                            <i class="bi bi-lightning-fill me-2"></i>⚡ 一鍵平均分帳
+                                        </button>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-primary btn-lg btn-modern" id="proceedToSplitBtn">
+                                                <i class="bi bi-calculator me-2"></i>快速分帳
+                                            </button>
+                                            <button class="btn btn-info btn-lg btn-modern" id="startAdvancedSplitting">
+                                                <i class="bi bi-gear-fill me-2"></i>高級分帳
+                                            </button>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-outline-secondary btn-sm" id="showSplitSuggestions">
+                                                <i class="bi bi-lightbulb me-1"></i>智能建議
+                                            </button>
+                                            <button class="btn btn-outline-secondary btn-sm" id="useLastSettings">
+                                                <i class="bi bi-arrow-clockwise me-1"></i>使用上次設定
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 群組管理區域 -->
+        <section id="groups" class="section-container d-none">
+            <div class="container-fluid">
+                <div id="group-management-content">
+                    <!-- 動態載入群組管理內容 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 記錄管理區域 -->
+        <section id="records" class="section-container d-none">
+            <div class="container-fluid">
+                <!-- 頁籤導航 -->
+                <ul class="nav nav-tabs mb-4" id="recordsTabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="splitting-records-tab" data-bs-toggle="tab" data-bs-target="#splitting-records">
+                            <i class="bi bi-receipt me-1"></i>分帳記錄
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="debt-tracking-tab" data-bs-toggle="tab" data-bs-target="#debt-tracking">
+                            <i class="bi bi-currency-exchange me-1"></i>欠款追蹤
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- 頁籤內容 -->
+                <div class="tab-content" id="recordsTabContent">
+                    <!-- 分帳記錄 -->
+                    <div class="tab-pane fade show active" id="splitting-records">
+                        <div id="splitting-records-content">
+                            <!-- 動態載入分帳記錄內容 -->
+                        </div>
+                    </div>
+
+                    <!-- 欠款追蹤 -->
+                    <div class="tab-pane fade" id="debt-tracking">
+                        <div id="debt-tracking-content">
+                            <!-- 動態載入欠款追蹤內容 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 視覺報告區域 -->
+        <section id="reports" class="section-container d-none">
+            <div class="container-fluid">
+                <div id="reports-content">
+                    <!-- 動態載入視覺報告內容 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast 通知 -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notificationToast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="bi bi-info-circle text-primary me-2"></i>
+                <strong class="me-auto">HaMoney</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <!-- 動態內容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 應用程式 JS -->
+    <script src="js/storage.js"></script>
+    <script src="js/language-manager.js"></script>
+    <script src="js/loading-manager.js"></script>
+    <script src="js/chart-manager.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/scanner.js"></script>
+    <script src="js/splitting.js"></script>
+    <script src="js/debt-tracker.js"></script>
+    <script src="js/group-manager.js"></script>
+    <script src="js/advanced-splitting.js"></script>
+    <script src="js/quick-actions.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 

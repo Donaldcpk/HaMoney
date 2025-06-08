@@ -1,0 +1,486 @@
+/* HaMoney 響應式設計 */
+
+/* 超小設備 (手機, 小於576px) */
+@media (max-width: 575.98px) {
+    .container-fluid {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .section-container {
+        padding: 1rem 0.5rem;
+    }
+    
+    .hero-section {
+        padding: 1.5rem 1rem;
+    }
+    
+    .display-4 {
+        font-size: 1.8rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    .feature-card .card-body {
+        padding: 1rem;
+    }
+    
+    .feature-card h5 {
+        font-size: 1rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn-lg {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .upload-area {
+        padding: 2rem 1rem;
+    }
+    
+    .upload-area i {
+        font-size: 3rem !important;
+    }
+    
+    .upload-area h5 {
+        font-size: 1rem;
+    }
+    
+    .upload-area p {
+        font-size: 0.9rem;
+    }
+    
+    #previewImg {
+        max-height: 250px;
+    }
+    
+    .btn-group .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .member-card {
+        padding: 0.75rem;
+    }
+    
+    .member-name {
+        font-size: 0.9rem;
+    }
+    
+    .member-amount {
+        font-size: 1rem;
+    }
+    
+    .record-item {
+        padding: 0.75rem;
+    }
+    
+    .record-amount {
+        font-size: 1rem;
+    }
+}
+
+/* 小設備 (手機橫向, 576px 到 767.98px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .section-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .hero-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .display-4 {
+        font-size: 2.2rem;
+    }
+    
+    .feature-card .card-body {
+        padding: 1.25rem;
+    }
+    
+    .upload-area {
+        padding: 3rem 1.5rem;
+    }
+    
+    #previewImg {
+        max-height: 300px;
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .modal-dialog {
+        margin: 1rem;
+    }
+}
+
+/* 中等設備 (平板, 768px 到 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .section-container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .hero-section {
+        padding: 3rem 2rem;
+    }
+    
+    .upload-area {
+        padding: 4rem 2rem;
+    }
+    
+    #previewImg {
+        max-height: 350px;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-3px);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* 大設備 (桌面, 992px 到 1199.98px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .section-container {
+        padding: 2.5rem 2rem;
+    }
+    
+    .hero-section {
+        padding: 4rem 2.5rem;
+    }
+    
+    .upload-area {
+        padding: 5rem 2.5rem;
+    }
+    
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* 超大設備 (大桌面, 1200px 以上) */
+@media (min-width: 1200px) {
+    .section-container {
+        padding: 3rem 2rem;
+    }
+    
+    .hero-section {
+        padding: 5rem 3rem;
+    }
+    
+    .upload-area {
+        padding: 6rem 3rem;
+    }
+    
+    .container {
+        max-width: 1140px;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-8px);
+    }
+}
+
+/* 特殊橫向設備適配 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .hero-section {
+        padding: 1rem;
+    }
+    
+    .display-4 {
+        font-size: 1.5rem;
+    }
+    
+    .feature-card {
+        margin-bottom: 0.5rem;
+    }
+    
+    .section-container {
+        padding: 1rem;
+        min-height: auto;
+    }
+    
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .navbar {
+        padding: 0.25rem 1rem;
+    }
+}
+
+/* 高分辨率屏幕適配 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .upload-area i {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .btn {
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    .card {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+}
+
+/* 打印樣式 */
+@media print {
+    .navbar,
+    .modal,
+    .toast-container,
+    .btn:not(.btn-print) {
+        display: none !important;
+    }
+    
+    .section-container {
+        padding: 0;
+        min-height: auto;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .hero-section {
+        background: none !important;
+        color: #000 !important;
+    }
+    
+    body {
+        background: white !important;
+        color: #000 !important;
+    }
+    
+    .record-item {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+        border: 1px solid #000;
+    }
+    
+    .amount-display,
+    .total-amount,
+    .member-amount,
+    .record-amount {
+        color: #000 !important;
+    }
+}
+
+/* 減少動畫設置 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .feature-card:hover,
+    .group-card:hover,
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* 深色模式支援 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light-color: #343a40;
+        --dark-color: #f8f9fa;
+    }
+    
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    
+    .card {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+        border: 1px solid #333;
+    }
+    
+    .modal-content {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+    
+    .form-control {
+        background-color: #2d2d2d;
+        border-color: #555;
+        color: #e0e0e0;
+    }
+    
+    .form-control:focus {
+        background-color: #2d2d2d;
+        border-color: var(--primary-color);
+        color: #e0e0e0;
+    }
+    
+    .upload-area {
+        background-color: #2d2d2d;
+        border-color: #555;
+        color: #e0e0e0;
+    }
+    
+    .list-group-item {
+        background-color: transparent;
+        border-color: #555;
+        color: #e0e0e0;
+    }
+    
+    .text-muted {
+        color: #adb5bd !important;
+    }
+}
+
+/* 觸控設備優化 */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .nav-link {
+        padding: 1rem;
+    }
+    
+    .upload-area {
+        padding: 3rem 1.5rem;
+        min-height: 200px;
+    }
+    
+    .member-card {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .record-item {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 2rem;
+    }
+}
+
+/* 可訪問性改進 */
+@media (prefers-contrast: high) {
+    .btn {
+        border-width: 2px;
+    }
+    
+    .card {
+        border-width: 2px;
+        border-color: #000;
+    }
+    
+    .form-control {
+        border-width: 2px;
+    }
+    
+    .upload-area {
+        border-width: 3px;
+    }
+}
+
+/* 折疊設備支援 */
+@media (min-width: 280px) and (max-width: 653px) and (min-height: 653px) {
+    .hero-section {
+        padding: 1rem;
+    }
+    
+    .feature-card {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-group .btn {
+        margin-bottom: 0.5rem;
+        border-radius: var(--border-radius) !important;
+    }
+}
+
+/* 極窄屏幕適配 */
+@media (max-width: 320px) {
+    .container-fluid {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+    }
+    
+    .section-container {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .hero-section {
+        padding: 1rem 0.5rem;
+    }
+    
+    .display-4 {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    .upload-area {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .modal-dialog {
+        margin: 0.25rem;
+    }
+} 
