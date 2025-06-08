@@ -769,3 +769,377 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* =================================
+   手機優化專用樣式
+   ================================= */
+
+/* 分帳按鈕優化 */
+.btn-modern {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .btn-modern {
+        min-height: 90px;
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+    
+    .btn-modern i {
+        font-size: 2rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .btn-modern small {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        line-height: 1.2;
+    }
+}
+
+/* 分帳方式選擇卡片 */
+.split-method-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    height: 100%;
+}
+
+.split-method-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.split-method-card.border-primary {
+    border-color: var(--bs-primary) !important;
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.split-method-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 180px;
+}
+
+/* 手機優化：模態框 */
+@media (max-width: 768px) {
+    .modal-xl {
+        max-width: 96vw;
+        margin: 0.5rem;
+    }
+    
+    .modal-lg {
+        max-width: 96vw;
+        margin: 0.5rem;
+    }
+    
+    .modal-body {
+        padding: 1rem 0.75rem;
+    }
+    
+    .split-method-card {
+        margin-bottom: 1rem;
+    }
+    
+    .split-method-card .card-body {
+        padding: 1rem 0.75rem;
+        min-height: 150px;
+    }
+    
+    .split-method-card h6 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .split-method-card .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* 參與者項目 */
+.participant-item {
+    margin-bottom: 0.5rem;
+}
+
+.participant-item .card {
+    transition: all 0.2s ease;
+    border: 1px solid #dee2e6;
+}
+
+.participant-item .card:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    border-color: var(--bs-primary);
+}
+
+.participant-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.remove-participant {
+    border: none;
+    background: none;
+    color: #dc3545;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* 手機友好的表單 */
+@media (max-width: 768px) {
+    .form-control, .form-select {
+        font-size: 1rem;
+        padding: 0.75rem;
+        border-radius: 8px;
+    }
+    
+    .input-group-text {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    .form-check-input {
+        transform: scale(1.3);
+        margin-right: 0.75rem;
+    }
+    
+    .form-check-label {
+        font-size: 1rem;
+        padding-left: 0.25rem;
+        line-height: 1.5;
+    }
+    
+    .card-header h6 {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+    
+    .alert {
+        font-size: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+}
+
+/* 計算預覽優化 */
+.calculation-preview {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+@media (max-width: 768px) {
+    .calculation-preview {
+        padding: 0.75rem;
+    }
+}
+
+/* 手機優化：表格 */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+    
+    .table-sm td, .table-sm th {
+        padding: 0.6rem 0.4rem;
+        vertical-align: middle;
+    }
+    
+    .table thead th {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+}
+
+/* 修訂界面優化 */
+.split-row {
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.split-row:hover {
+    background: rgba(13, 110, 253, 0.02);
+    border-color: rgba(13, 110, 253, 0.2);
+}
+
+.split-amount {
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.split-amount:focus {
+    border-color: var(--bs-success);
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+    transform: scale(1.02);
+}
+
+.reset-amount {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 手機優化：修訂界面 */
+@media (max-width: 768px) {
+    .split-row {
+        padding: 1rem 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .split-row .col-6 {
+        margin-bottom: 0.5rem;
+    }
+    
+    .split-amount {
+        font-size: 1.1rem;
+        padding: 0.75rem;
+    }
+    
+    .reset-amount {
+        width: 40px;
+        height: 40px;
+        margin-top: 0.5rem;
+    }
+}
+
+/* 手機優化：快速操作按鈕 */
+@media (max-width: 768px) {
+    .btn-outline-secondary.btn-sm {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+        margin: 0.25rem;
+        border-radius: 20px;
+    }
+    
+    .btn-outline-secondary.btn-sm:hover {
+        transform: translateY(-1px);
+    }
+}
+
+/* 改進的警告和成功狀態 */
+.text-danger {
+    font-weight: 600;
+    color: #dc3545 !important;
+}
+
+.text-success {
+    font-weight: 600;
+    color: #198754 !important;
+}
+
+.text-warning {
+    font-weight: 600;
+    color: #fd7e14 !important;
+}
+
+/* 總計驗證樣式 */
+#totalWarning {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* 手機優化：載入動畫 */
+@media (max-width: 768px) {
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.3em;
+    }
+    
+    .modal-header .btn-close {
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+}
+
+/* 成功動畫 */
+.success-animation {
+    animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 改進通知樣式 */
+.toast {
+    border: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .toast-container {
+        position: fixed !important;
+        top: 1rem !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        bottom: auto !important;
+        z-index: 1060;
+    }
+    
+    .toast {
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* 項目分配視覺化 */
+.item-assignment-visual {
+    position: relative;
+    overflow: hidden;
+}
+
+.item-assignment-visual::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(13, 110, 253, 0.1) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.item-assignment-visual:hover::after {
+    opacity: 1;
+}
