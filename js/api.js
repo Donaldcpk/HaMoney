@@ -5,11 +5,29 @@
 
 class HaMoneyAPI {
     constructor() {
-        this.apiKey = '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';
-        this.apiEndpoint = 'https://openrouter.ai/api/v1/chat/completions';
-        this.model = 'meta-llama/llama-4-maverick:free';
+        // 從配置文件獲取設定
+        this.config = window.HaMoneyConfig;
+        this.apiKey = this.config.getApiKey();
+        this.apiEndpoint = this.config.api.endpoint;
+        this.model = this.config.api.model;
         this.siteUrl = window.location.origin;
-        this.siteName = 'HaMoney';
+        this.siteName = this.config.app.siteName;
+        
+        // 驗證配置
+        this.validateConfiguration();
+    }
+
+    /**
+     * 驗證API配置
+     */
+    validateConfiguration() {
+        try {
+            this.config.validateConfig();
+            console.log('✅ API配置驗證成功');
+        } catch (error) {
+            console.error('❌ API配置驗證失敗:', error.message);
+            throw error;
+        }
     }
 
     /**

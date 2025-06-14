@@ -189,6 +189,175 @@ class HaMoneyScanner {
     }
 
     /**
+     * 檢查群組要求
+     * 核心需求：必須先選擇群組才能掃描單據
+     * @returns {boolean} 是否滿足群組要求
+     */
+    checkGroupRequirement() {
+        // 檢查是否有群組
+        const groups = window.haMoneyStorage.getGroups();
+        
+        if (!groups || groups.length === 0) {
+            // 沒有群組，顯示提醒並引導創建
+            this.showGroupRequiredModal();
+            return false;
+        }
+
+        // 檢查是否已選擇群組
+        const selectedGroup = window.haMoneyStorage.get('selectedGroup');
+        if (!selectedGroup) {
+            // 有群組但未選擇，顯示群組選擇模態框
+            this.showGroupSelectionModal(groups);
+            return false;
+        }
+
+        // 驗證所選群組是否還存在
+        const currentGroup = groups.find(g => g.id === selectedGroup.id);
+        if (!currentGroup) {
+            // 所選群組已不存在，清除選擇並重新選擇
+            window.haMoneyStorage.remove('selectedGroup');
+            this.showGroupSelectionModal(groups);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 顯示需要群組的模態框
+     */
+    showGroupRequiredModal() {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'groupRequiredModal';
+        modal.innerHTML = `
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title">
+                            <i class="bi bi-exclamation-triangle me-2"></i>需要先創建群組
+                        </h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="mb-4">
+                            <i class="bi bi-people text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="mb-3">掃描單據前請先創建群組</h5>
+                        <p class="text-muted mb-4">
+                            分帳功能需要群組成員才能進行。<br>
+                            請先創建一個群組，添加您的朋友或家人。
+                        </p>
+                        <div class="alert alert-info">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            <strong>提示：</strong>群組可以包含經常一起用餐的人員，方便後續分帳！
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.haMoneyScanner.navigateToGroups()">
+                            <i class="bi bi-plus-circle me-2"></i>立即創建群組
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">稍後再說</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        const bootstrapModal = new bootstrap.Modal(modal, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        bootstrapModal.show();
+        
+        // 清理模態框
+        modal.addEventListener('hidden.bs.modal', () => {
+            document.body.removeChild(modal);
+        });
+    }
+
+    /**
+     * 顯示群組選擇模態框
+     * @param {Array} groups - 群組列表
+     */
+    showGroupSelectionModal(groups) {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'groupSelectionModal';
+        modal.innerHTML = `
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">
+                            <i class="bi bi-people me-2"></i>選擇分帳群組
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted mb-3">請選擇要進行分帳的群組：</p>
+                        <div class="list-group" id="groupSelectionList">
+                            ${groups.map(group => `
+                                <button type="button" class="list-group-item list-group-item-action" data-group-id="${group.id}">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">${group.name}</h6>
+                                            <small class="text-muted">${group.members.length} 位成員</small>
+                                        </div>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </div>
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button type="button" class="btn btn-outline-primary" onclick="window.haMoneyScanner.navigateToGroups()">
+                                <i class="bi bi-plus me-2"></i>創建新群組
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        const bootstrapModal = new bootstrap.Modal(modal, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        bootstrapModal.show();
+        
+        // 綁定群組選擇事件
+        const groupButtons = modal.querySelectorAll('[data-group-id]');
+        groupButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const groupId = button.dataset.groupId;
+                const selectedGroup = groups.find(g => g.id === groupId);
+                if (selectedGroup) {
+                    window.haMoneyStorage.set('selectedGroup', selectedGroup);
+                    this.showNotification(`已選擇群組：${selectedGroup.name}`, 'success');
+                    bootstrapModal.hide();
+                    // 重新嘗試分析
+                    setTimeout(() => this.analyzeImage(), 500);
+                }
+            });
+        });
+        
+        // 清理模態框
+        modal.addEventListener('hidden.bs.modal', () => {
+            document.body.removeChild(modal);
+        });
+    }
+
+    /**
+     * 導航到群組頁面
+     */
+    navigateToGroups() {
+        if (window.haMoneyMain) {
+            window.haMoneyMain.showSection('groups');
+        }
+    }
+
+    /**
      * 計算新尺寸
      * @param {number} originalWidth - 原始寬度
      * @param {number} originalHeight - 原始高度
@@ -285,6 +454,11 @@ class HaMoneyScanner {
     async analyzeImage() {
         if (!this.currentImage) {
             this.showNotification('請先上傳圖片', 'warning');
+            return;
+        }
+
+        // 🎯 核心需求：檢查是否有群組，沒有群組則不能掃描
+        if (!this.checkGroupRequirement()) {
             return;
         }
 

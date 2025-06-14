@@ -147,10 +147,118 @@ class HaMoneyAuth {
             // 用戶已登入
             console.log('用戶已登入:', user.displayName);
             this.initUserData();
+            this.handlePostLoginFlow();
         } else {
             // 用戶未登入
             console.log('用戶未登入');
             this.showLoginPrompt();
+        }
+    }
+
+    /**
+     * 處理登錄後的流程
+     * 優先引導用戶創建或選擇群組
+     */
+    handlePostLoginFlow() {
+        // 檢查是否有群組
+        const groups = window.haMoneyStorage.getGroups();
+        
+        if (!groups || groups.length === 0) {
+            // 沒有群組，引導創建群組
+            this.showNotification('歡迎使用 HaMoney！請先創建您的第一個群組', 'info');
+            setTimeout(() => {
+                this.showFirstTimeGroupSetup();
+            }, 2000);
+        } else {
+            // 有群組，但引導到群組管理頁面讓用戶確認
+            this.showNotification('歡迎回來！請確認或創建群組後開始分帳', 'success');
+            setTimeout(() => {
+                if (window.haMoneyMain) {
+                    window.haMoneyMain.showSection('groups');
+                }
+            }, 1500);
+        }
+    }
+
+    /**
+     * 顯示初次群組設置指引
+     */
+    showFirstTimeGroupSetup() {
+        // 跳轉到群組頁面
+        if (window.haMoneyMain) {
+            window.haMoneyMain.showSection('groups');
+        }
+        
+        // 顯示群組創建指引
+        setTimeout(() => {
+            this.showGroupCreationGuide();
+        }, 500);
+    }
+
+    /**
+     * 顯示群組創建指引
+     */
+    showGroupCreationGuide() {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'groupGuideModal';
+        modal.innerHTML = `
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">
+                            <i class="bi bi-people-fill me-2"></i>歡迎使用 HaMoney！
+                        </h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="mb-4">
+                            <i class="bi bi-people text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="mb-3">讓我們開始吧！</h5>
+                        <p class="text-muted mb-4">
+                            在掃描單據之前，請先創建一個群組。<br>
+                            群組可以是您的朋友、同事或家人。
+                        </p>
+                        <div class="alert alert-info">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            <strong>提示：</strong>創建群組後，您就可以開始掃描單據並進行分帳了！
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.haMoneyAuth.triggerGroupCreation()">
+                            <i class="bi bi-plus-circle me-2"></i>創建我的第一個群組
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        const bootstrapModal = new bootstrap.Modal(modal, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        bootstrapModal.show();
+        
+        // 清理模態框
+        modal.addEventListener('hidden.bs.modal', () => {
+            document.body.removeChild(modal);
+        });
+    }
+
+    /**
+     * 觸發群組創建
+     */
+    triggerGroupCreation() {
+        if (window.haMoneyGroupManager) {
+            // 觸發新群組創建
+            const createButton = document.querySelector('#createGroupBtn');
+            if (createButton) {
+                createButton.click();
+            } else {
+                // 如果按鈕不存在，直接調用創建功能
+                window.haMoneyGroupManager.showCreateGroupModal();
+            }
         }
     }
 

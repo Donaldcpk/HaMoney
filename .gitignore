@@ -1,0 +1,38 @@
+# 依賴項目
+node_modules/
+npm-debug.log*
+
+# 環境變數和配置文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+config.js
+api-config.js
+
+# 日誌文件
+logs/
+*.log
+
+# 臨時文件
+.tmp/
+.cache/
+
+# 系統文件
+.DS_Store
+Thumbs.db
+
+# IDE配置
+.vscode/
+.idea/
+
+# 建構產物
+dist/
+build/
+
+# Firebase配置（包含敏感資訊）
+firebase-config.js
+
+# API密鑰配置文件
+api-keys.js 

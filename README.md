@@ -107,22 +107,35 @@ npx http-server -p 8080
 open http://localhost:8080
 ```
 
+## 🔧 API密鑰配置（必需）
+
+HaMoney使用AI進行智能單據識別，需要配置API密鑰：
+
+### 設置步驟：
+1. 複製 `api-keys.example.js` 為 `api-keys.js`
+2. 在 `api-keys.js` 中填入您的實際API密鑰
+3. 文件會被自動忽略，不會上傳到Git倉庫
+
+```javascript
+// api-keys.js
+window.HaMoneyApiKeys = {
+    openRouterKey: 'sk-or-v1-your-actual-api-key-here',
+    firebaseKey: 'your-firebase-key-here'
+};
+```
+
+### 重要提醒：
+- ❌ **絕對不要**將真實API密鑰提交到Git倉庫
+- ✅ 使用 `api-keys.example.js` 作為參考
+- 🔒 `api-keys.js` 已被 `.gitignore` 保護
+
 ## 🔧 Firebase配置（可選）
 
 如需雲端同步功能，請配置Firebase：
 
 1. 在 [Firebase Console](https://console.firebase.google.com/) 創建新項目
 2. 啟用Authentication和Firestore
-3. 將配置添加到 `js/auth.js`
-
-```javascript
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  // ... 其他配置
-};
-```
+3. 將Firebase配置添加到 `api-keys.js` 中的 `firebaseKey`
 
 ## 📂 項目結構
 
