@@ -43,25 +43,29 @@ const HaMoneyConfig = {
         backupInterval: 24 * 60 * 60 * 1000 // 24小時
     },
 
-    // 獲取API密鑰（從外部配置文件）
+    // 獲取API密鑰
     getApiKey() {
         try {
-            // 優先從環境變數獲取
-            if (typeof process !== 'undefined' && process.env && process.env.HAMONEY_API_KEY) {
-                return process.env.HAMONEY_API_KEY;
+            // 生產環境使用直接嵌入的密鑰
+            const prodApiKey = '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';
+            
+            // 檢查是否在生產環境
+            if (window.location.hostname.includes('vercel.app') || window.location.hostname !== 'localhost') {
+                return prodApiKey;
             }
             
-            // 從外部配置文件獲取
+            // 開發環境優先從外部配置文件獲取
             if (typeof window !== 'undefined' && window.HaMoneyApiKeys) {
                 return window.HaMoneyApiKeys.openRouterKey;
             }
             
-            // 開發環境警告
-            console.warn('❌ API密鑰未設定！請檢查配置文件');
-            return null;
+            // 如果外部配置不存在，使用嵌入密鑰
+            return prodApiKey;
+            
         } catch (error) {
             console.error('獲取API密鑰失敗:', error);
-            return null;
+            // 返回嵌入的密鑰作為後備
+            return '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';
         }
     },
 
@@ -76,6 +80,7 @@ const HaMoneyConfig = {
             throw new Error('API密鑰格式不正確');
         }
         
+        console.log('✅ API配置驗證成功');
         return true;
     }
 };

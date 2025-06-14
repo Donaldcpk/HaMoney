@@ -36,3 +36,4 @@ firebase-config.js
 
 # API密鑰配置文件
 api-keys.js 
+.vercel
